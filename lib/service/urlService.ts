@@ -1,9 +1,10 @@
-import { inject } from "inversify";
+import { inject, injectable } from "inversify";
 import { types } from "../config/types";
 import { IUrlRepository } from "../interfaces/IUrlRepository";
 import { IUrlService } from "../interfaces/IUrlService";
 import { CreateShortUrl, GetShortUrl, RedirectUrlType } from "../types/urlTypes";
 
+@injectable()
 export default class urlService implements IUrlService {
 
   private _urlRepository: IUrlRepository;

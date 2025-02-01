@@ -1,13 +1,16 @@
+import { injectable } from "inversify";
 import { IUrlRepository } from "../interfaces/IUrlRepository";
 import analyticsSchema from "../models/analyticsSchema";
 import urlSchema from "../models/urlSchema";
 import { AnalyticsUrl, CreateShortUrl, GetShortUrl, RedirectUrlType } from "../types/urlTypes";
 
+@injectable()
 export default class urlRepository implements IUrlRepository {
     async logRedirectEvent(data: RedirectUrlType): Promise<AnalyticsUrl> {
         try {
             const logEntry = await analyticsSchema.create({ alias: data.alias, ipAddress: data.ipAddress, userAgent: data.userAgent });
-            return logEntry as AnalyticsUrl;
+            const res = { alias: logEntry.alias, ipAddress: logEntry.ipAddress, userAgent: logEntry.userAgent, timestamp: logEntry.timestamp};
+            return res as AnalyticsUrl;
         } catch (serviceErr) {
             throw new Error(`[logRedirectEvent] redirect log failed due to ${serviceErr}`);
         }
