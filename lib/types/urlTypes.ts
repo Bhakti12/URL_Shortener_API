@@ -30,3 +30,41 @@ export declare type AnalyticsUrl = {
     },
     userId?: string
 }
+
+export interface ClicksByDate {
+    date: string;
+    count: number;
+}
+
+export interface OsType {
+    osName: string; // e.g., Windows, macOS, Linux, iOS, Android
+    uniqueClicks: number;
+    uniqueUsers: number;
+}
+
+interface DeviceType {
+    deviceName: string; // e.g., mobile, desktop
+    uniqueClicks: number;
+    uniqueUsers: number;
+}
+
+interface UrlAnalytics {
+    shortUrl: string;
+    totalClicks: number;
+    uniqueUsers: number;
+}
+
+export declare type AnalyticsByAliasData = {
+    totalClicks: number;
+    uniqueUsers: number;
+    clicksByDate: ClicksByDate[];
+    osType: OsType[];
+    deviceType: DeviceType[];
+}
+
+export declare type AnalyticsByTopicData = {
+    totalClicks: number;
+    uniqueUsers: number;
+    clicksByDate: ClicksByDate[];
+    urls: UrlAnalytics[];
+}
