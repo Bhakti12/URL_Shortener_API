@@ -12,7 +12,7 @@ export default class urlRepository implements IUrlRepository {
             const res = { alias: logEntry.alias, ipAddress: logEntry.ipAddress, userAgent: logEntry.userAgent, timestamp: logEntry.timestamp};
             return res as AnalyticsUrl;
         } catch (serviceErr) {
-            throw new Error(`[logRedirectEvent] redirect log failed due to ${serviceErr}`);
+            throw new Error(`[Repo][logRedirectEvent] redirect log failed due to ${serviceErr}`);
         }
     }
 
@@ -28,7 +28,7 @@ export default class urlRepository implements IUrlRepository {
 
             return response as GetShortUrl;
         } catch (serviceErr) {
-            throw new Error(`[createShortenUrl] url creation failed due to ${serviceErr}`);
+            throw new Error(`[Repo][createShortenUrl] url creation failed due to ${serviceErr}`);
         }
     }
 
@@ -37,7 +37,7 @@ export default class urlRepository implements IUrlRepository {
             const response = await urlSchema.findOne({ customAlias: alias });
             return response;
         } catch (serviceErr) {
-            throw new Error(`[findUrlByAlias] alias find failed due to ${serviceErr}`);
+            throw new Error(`[Repo][findUrlByAlias] alias find failed due to ${serviceErr}`);
         }
     }
 }

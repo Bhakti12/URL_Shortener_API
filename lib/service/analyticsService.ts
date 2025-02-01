@@ -17,7 +17,7 @@ export default class analyticsService implements IAnalyticsService {
             const response = await this._analyticsRepository.getAnalyticsByAlias(alias);
             return response as AnalyticsByAliasData;
         } catch (serviceErr) {
-            throw new Error(`[getAnalyticsByAlias] alias find failed due to ${serviceErr}`);
+            throw new Error(`[Service][getAnalyticsByAlias] alias find failed due to ${serviceErr}`);
         }
     }
     async getAnalyticsbyTopic(topic: string): Promise<AnalyticsByTopicData> {
@@ -73,7 +73,7 @@ export default class analyticsService implements IAnalyticsService {
                 urls: urlsResponse
             };
         } catch (serviceErr) {
-            throw new Error(`[getAnalyticsByTopic] topic find failed due to ${serviceErr}`);
+            throw new Error(`[Service][getAnalyticsByTopic] topic find failed due to ${serviceErr}`);
         }
     }
     async getOverallAnalytics(userId: string): Promise<AnalyticsByAliasData> {
@@ -81,7 +81,7 @@ export default class analyticsService implements IAnalyticsService {
             const response = await this._analyticsRepository.getOverallAnalytics(userId);
             return response as AnalyticsByAliasData;
         } catch (serviceErr) {
-            throw new Error(`[getOverAllAnalytics] alias find failed due to ${serviceErr}`);
+            throw new Error(`[Service][getOverAllAnalytics] alias find failed due to ${serviceErr}`);
         }
     }
 

@@ -19,7 +19,7 @@ export default class userRepository implements IUserRepository {
             const response = await userSchema.create({ firstName, lastName, emailId, password: hashPassword });
             return response as GetRegisterUser;
         } catch (serviceErr) {
-            throw new Error(`[userRegistrationRepository] user registration failed due to ${serviceErr}`);
+            throw new Error(`[Repo][userRegistrationRepository] user registration failed due to ${serviceErr}`);
         }
     }
 }
