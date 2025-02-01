@@ -19,5 +19,6 @@ const limiter = rateLimit({
 
 // POST /api/shorten
 router.post('/api/shorten', limiter, (req, res) => urlcController.createShortUrl(req, res));
+router.get('/api//shorten/:alias', (req, res) => urlcController.redirectOrginalUrl(req, res));
 
 export default router;

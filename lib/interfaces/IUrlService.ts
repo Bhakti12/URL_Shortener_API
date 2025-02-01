@@ -1,5 +1,6 @@
-import { CreateShortUrl, GetShortUrl } from "../types/urlTypes";
+import { CreateShortUrl, GetShortUrl, RedirectUrlType } from "../types/urlTypes";
 
 export interface IUrlService{
-    createShortenUrl(url: CreateShortUrl): Promise<GetShortUrl>
+    createShortenUrl(url: CreateShortUrl): Promise<GetShortUrl>,
+    handleRedirect(data: RedirectUrlType): Promise<string>
 }
