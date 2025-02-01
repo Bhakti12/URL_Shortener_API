@@ -15,8 +15,6 @@ app.get('/', (req, res) => {
   res.send('Hello, TypeScript + Node.js + Express!');
 });
 
-expressOasGenerator.handleRequests();
-
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
