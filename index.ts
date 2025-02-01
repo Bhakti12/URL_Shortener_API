@@ -1,12 +1,15 @@
-import express from 'express';
-import expressOasGenerator from 'express-oas-generator';
-import swaggerConfig from './lib/config/swagger_config';
+import express, { json } from 'express';
+import { DatabaseConnection } from './lib/config/mongoConfig';
+import bodyParser from 'body-parser';
 
 const app = express();
 
+app.use(json());
+app.use(bodyParser.urlencoded({extended: true}));
+
 const port = 3000;
 
-expressOasGenerator.handleResponses(app, swaggerConfig);
+DatabaseConnection();
 
 app.get('/', (req, res) => {
   res.send('Hello, TypeScript + Node.js + Express!');
