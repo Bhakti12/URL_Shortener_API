@@ -19,7 +19,7 @@ export default class userService implements IUserService{
             const registerUser = await this._userRepository.userRegistrationRepo(user);
             return registerUser; 
         }catch(serviceErr){
-            throw new Error(`[userRegistrationService] user registration failed due to ${serviceErr}`);
+            throw new Error(`[Service][userRegistrationService] user registration failed due to ${serviceErr}`);
         }
     }   
 }

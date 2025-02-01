@@ -12,7 +12,7 @@ export default class analyticsRepository implements IAnalyticsRepository {
             const urls = await urlSchema.find({ topic });
             return urls;
         } catch (serviceErr) {
-            throw new Error(`[getUrlsByTopic] topic find failed due to ${serviceErr}`);
+            throw new Error(`[Repo][getUrlsByTopic] topic find failed due to ${serviceErr}`);
         }
     }
     async getAnalyticsByAlias(alias: string): Promise<AnalyticsByAliasData> {
@@ -20,7 +20,7 @@ export default class analyticsRepository implements IAnalyticsRepository {
             const data = await analyticsSchema.findOne({ alias: alias });
             return data as AnalyticsByAliasData;
         } catch (serviceErr) {
-            throw new Error(`[getAnalyticsByAlias] alias find failed due to ${serviceErr}`);
+            throw new Error(`[Repo][getAnalyticsByAlias] alias find failed due to ${serviceErr}`);
         }
     }
     async getAnalyticsByTopic(alias: string[]): Promise<any> {
@@ -28,7 +28,7 @@ export default class analyticsRepository implements IAnalyticsRepository {
             const data = await analyticsSchema.find({ alias: { $in: alias } });
             return data;
         } catch (serviceErr) {
-            throw new Error(`[getAnalyticsByTopic] topic find failed due to ${serviceErr}`);
+            throw new Error(`[Repo][getAnalyticsByTopic] topic find failed due to ${serviceErr}`);
         }
     }
     async getOverallAnalytics(userId: string): Promise<AnalyticsByAliasData> {
@@ -37,7 +37,7 @@ export default class analyticsRepository implements IAnalyticsRepository {
             const res = { totalClicks: data?.totalClicks, uniqueUsers: data?.uniqueUsers, clicksByDate: data?.clicksByDate, osType: data?.osType, deviceType: data?.deviceType };
             return res as AnalyticsByAliasData;
         } catch (serviceErr) {
-            throw new Error(`[getAnalyticsByAlias] alias find failed due to ${serviceErr}`);
+            throw new Error(`[Repo][getAnalyticsByAlias] alias find failed due to ${serviceErr}`);
         }
     }
 }

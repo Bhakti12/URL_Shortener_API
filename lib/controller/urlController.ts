@@ -2,6 +2,8 @@ import { inject, injectable } from "inversify";
 import { IUrlService } from "../interfaces/IUrlService";
 import { types } from "../config/types";
 import { Request, Response } from "express";
+import { sendResponse } from "../error/globalSuccessHandler";
+import { sendErrorProd } from "../error/globalErrorHandler";
 
 @injectable()
 export default class urlController {
@@ -18,9 +20,9 @@ export default class urlController {
             const { longUrl, customAlias, topic } = req.body;
             const userId = req.body.id;  //TODO: convert into user.id
             const result = await this._urlService.createShortenUrl({ longUrl, customAlias, topic, userId });
-            return res.status(201).json(result);
+            await sendResponse(200, 'Short Url Successfully Created', result, res);
         } catch (serviceErr) {
-            return res.status(500).json({ error: 'Internal server error' });
+            await sendErrorProd(serviceErr, req, res);
         }
     }
 
@@ -34,7 +36,7 @@ export default class urlController {
 
             return res.redirect(301, originalUrl);
         } catch (serviceErr) {
-            return res.status(404).json({ error: 'Original URL not found' });
+            await sendErrorProd(serviceErr, req, res);
         }
     }
 }
