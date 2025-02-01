@@ -1,8 +1,18 @@
 import { IUrlRepository } from "../interfaces/IUrlRepository";
+import analyticsSchema from "../models/analyticsSchema";
 import urlSchema from "../models/urlSchema";
-import { CreateShortUrl, GetShortUrl } from "../types/urlTypes";
+import { AnalyticsUrl, CreateShortUrl, GetShortUrl, RedirectUrlType } from "../types/urlTypes";
 
 export default class urlRepository implements IUrlRepository {
+    async logRedirectEvent(data: RedirectUrlType): Promise<AnalyticsUrl> {
+        try {
+            const logEntry = await analyticsSchema.create({ alias: data.alias, ipAddress: data.ipAddress, userAgent: data.userAgent });
+            return logEntry as AnalyticsUrl;
+        } catch (serviceErr) {
+            throw new Error(`[logRedirectEvent] redirect log failed due to ${serviceErr}`);
+        }
+    }
+
     async createShortenUrl(url: CreateShortUrl): Promise<GetShortUrl> {
         try {
             const longUrl = url.longUrl;
@@ -20,10 +30,10 @@ export default class urlRepository implements IUrlRepository {
     }
 
     async findUrlByAlias(alias: string): Promise<any> {
-        try{
+        try {
             const response = await urlSchema.findOne({ customAlias: alias });
             return response;
-        } catch(serviceErr) {
+        } catch (serviceErr) {
             throw new Error(`[findUrlByAlias] alias find failed due to ${serviceErr}`);
         }
     }
