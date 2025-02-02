@@ -4,6 +4,7 @@ import urlController from '../controller/urlController';
 import { iocContainer as Container } from "../config/container";
 import { IUrlService } from '../interfaces/IUrlService';
 import { types } from '../config/types';
+import { ensureAuthenticated } from '../middleware/authenticationMiddleware';
 
 const urlRouter = express.Router();
 

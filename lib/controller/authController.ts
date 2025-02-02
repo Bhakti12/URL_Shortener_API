@@ -21,16 +21,19 @@ export class AuthController {
     request?: any
   ) => {
     try {
+      console.log("profile", profile);
       const id = profile.id;
       const email = profile.emails?.[0]?.value ?? "";
       const firstname = profile.name?.givenName ?? "";
       const lastname = profile.name?.familyName ?? "";
+      const lastLoginAt = new Date();
       const AddUser: RegisterUser = {
         firstName: firstname,
         lastName: lastname,
         sId: id,
         emailId: email,
-        password: ""
+        password: "",
+        lastLoginAt: lastLoginAt
       };
       console.log("checking !!!" + email);
       const userCheck = await userSchema.findOne({

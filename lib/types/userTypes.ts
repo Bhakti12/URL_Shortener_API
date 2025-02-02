@@ -12,5 +12,6 @@ export declare type RegisterUser = {
     firstName: String;
     lastName: String;
     emailId: String;
-    password: String
+    password: String;
+	lastLoginAt?: Date;
 };

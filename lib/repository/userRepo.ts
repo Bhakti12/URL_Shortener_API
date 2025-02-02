@@ -16,7 +16,8 @@ export default class userRepository implements IUserRepository {
             const password = user.password;
             const salt = await bcrypt.genSalt(10);
             const hashPassword = await bcrypt.hash(password?.toString(), salt);
-            const response = await userSchema.create({ firstName, lastName, emailId, password: hashPassword });
+            const lastLoginAt = new Date();
+            const response = await userSchema.create({ firstName, lastName, emailId, password: hashPassword, lastLoginAt: lastLoginAt });
             return response as GetRegisterUser;
         } catch (serviceErr) {
             throw new Error(`[Repo][userRegistrationRepository] user registration failed due to ${serviceErr}`);
