@@ -26,6 +26,10 @@ Ensure you have **Node.js v20.11.1** installed.
   ```sh
   npm install
   ```
+  **Build Application**:
+  ```sh
+  npm run build
+  ```
 - **Start the application**:
   ```sh
   npm start
