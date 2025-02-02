@@ -5,7 +5,7 @@ import { iocContainer as Container } from "../config/container";
 import { IUrlService } from '../interfaces/IUrlService';
 import { types } from '../config/types';
 
-const router = express.Router();
+const urlRouter = express.Router();
 
 const urlService = Container.get<IUrlService>(types.IUrlService);
 const urlcController = new urlController(urlService);
@@ -18,7 +18,7 @@ const limiter = rateLimit({
 });
 
 // POST /api/shorten
-router.post('/api/shorten', limiter, (req, res) => urlcController.createShortUrl(req, res));
-router.get('/api//shorten/:alias', (req, res) => urlcController.redirectOrginalUrl(req, res));
+urlRouter.post('/api/shorten', limiter, (req, res) => urlcController.createShortUrl(req, res));
+urlRouter.get('/api/shorten/:alias', (req, res) => urlcController.redirectOrginalUrl(req, res));
 
-export default router;
+export default urlRouter;

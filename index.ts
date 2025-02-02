@@ -1,20 +1,30 @@
 import express, { json } from 'express';
+import "reflect-metadata";
 import { DatabaseConnection } from './lib/config/mongoConfig';
 import bodyParser from 'body-parser';
+import swaggerConfig from './lib/config/swagger_config';
+import expressOasGenerator from 'express-oas-generator';
+import indexRouter from './lib/route/indexRoute';
+import { config } from './lib/config/config';
+import swaggerUi from 'swagger-ui-express';
+// import swaggerDocument from '../docs/swagger_output.json';
 
 const app = express();
 
-app.use(json());
-app.use(bodyParser.urlencoded({extended: true}));
+expressOasGenerator.handleResponses(app, swaggerConfig);
 
-const port = 3000;
+app.use(json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 DatabaseConnection();
 
-app.get('/', (req, res) => {
-  res.send('Hello, TypeScript + Node.js + Express!');
-});
+app.use('/analytics', indexRouter.analyticsRouter);
+app.use('/url', indexRouter.urlRouter);
+app.use('/auth', indexRouter.gAuthRouter);
+// app.use('/api-docs/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+expressOasGenerator.handleRequests();
+
+app.listen(config.PORT, () => {
+  console.log(`Server is running on http://localhost:${config.PORT}`);
 });
