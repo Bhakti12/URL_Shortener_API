@@ -40,7 +40,7 @@ gAuthRouter.get(
 );
 
 gAuthRouter.get(
-  "/gauth/google/callback",
+  "/auth/google/callback",
   passport.authenticate("google", {
     successRedirect: handlefun(true, true),
     failureRedirect: handlefun(false, true),

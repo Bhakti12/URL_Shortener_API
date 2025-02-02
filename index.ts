@@ -20,7 +20,7 @@ DatabaseConnection();
 
 app.use('/analytics', indexRouter.analyticsRouter);
 app.use('/url', indexRouter.urlRouter);
-app.use('/auth', indexRouter.gAuthRouter);
+app.use('/', indexRouter.gAuthRouter);
 // app.use('/api-docs/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 expressOasGenerator.handleRequests();
