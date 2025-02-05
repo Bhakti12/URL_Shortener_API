@@ -18,6 +18,9 @@ const userSchema = new mongoose.Schema({
     token: {
         type: String
     },
+    sId: {
+        type: String
+    },
     lastLoginAt: {
         type: Date,
         default: null

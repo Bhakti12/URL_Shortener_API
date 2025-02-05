@@ -17,14 +17,15 @@ export default class urlRepository implements IUrlRepository {
     }
 
     async createShortenUrl(url: CreateShortUrl): Promise<GetShortUrl> {
+        console.log('[repo] request body', url);
         try {
             const longUrl = url.longUrl;
-            const alias = url.customAlias;
+            const calias = url.customAlias;
             const topic = url.topic;
             const shortUrl = url.shortUrl;
             const userId = url.userId;
 
-            const response = await urlSchema.create({ longUrl: longUrl, customAlias: alias, topic: topic, shortUrl: shortUrl, userId: userId });
+            const response = await urlSchema.create({ longUrl: longUrl, alias: calias, topic: topic, shortUrl: shortUrl, userId: userId });
 
             return response as GetShortUrl;
         } catch (serviceErr) {

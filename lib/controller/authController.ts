@@ -4,6 +4,8 @@ import { RegisterUser } from "../types/userTypes";
 import { inject, injectable } from "inversify";
 import { types } from "../config/types";
 import { IUserService } from "../interfaces/IUserService";
+import jwt from "jsonwebtoken";
+import { config } from "../config/config"
 
 @injectable()
 export class AuthController {
@@ -35,10 +37,11 @@ export class AuthController {
         password: "",
         lastLoginAt: lastLoginAt
       };
-      console.log("checking !!!" + email);
+      console.log("checking !!!" + AddUser.sId);
       const userCheck = await userSchema.findOne({
         emailId: AddUser.emailId,
       });
+
       console.log("checking userCheck!!!" + userCheck);
       if (!userCheck) {
         const NewUser = await this._userService.userRegistrationService(

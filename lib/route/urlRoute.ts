@@ -4,7 +4,7 @@ import urlController from '../controller/urlController';
 import { iocContainer as Container } from "../config/container";
 import { IUrlService } from '../interfaces/IUrlService';
 import { types } from '../config/types';
-import { ensureAuthenticated } from '../middleware/authenticationMiddleware';
+import { authenticateToken } from '../middleware/authenticationMiddleware';
 
 const urlRouter = express.Router();
 
@@ -19,7 +19,7 @@ const limiter = rateLimit({
 });
 
 // POST /api/shorten
-urlRouter.post('/api/shorten', limiter, (req, res) => urlcController.createShortUrl(req, res));
+urlRouter.post('/api/shorten', limiter, authenticateToken, (req, res) => urlcController.createShortUrl(req, res));
 urlRouter.get('/api/shorten/:alias', (req, res) => urlcController.redirectOrginalUrl(req, res));
 
 export default urlRouter;

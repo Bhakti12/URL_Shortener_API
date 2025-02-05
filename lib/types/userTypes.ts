@@ -5,6 +5,7 @@ export declare type GetRegisterUser = {
 	phoneNumber?: String;
 	emailId?: String;
 	password?: String;
+	sId?: string;
 };
 
 export declare type RegisterUser = {

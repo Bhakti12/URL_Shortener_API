@@ -4,7 +4,6 @@ const urlSchema = new mongoose.Schema({
     alias: { type: String, required: true, unique: true },
     longUrl: { type: String, required: true },
     shortUrl: { type: String, required: true },
-    customAlias: { type: String },
     topic: { type: String },
     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     totalClicks: { type: Number, default: 0 },

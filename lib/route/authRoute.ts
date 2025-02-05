@@ -8,6 +8,8 @@ import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import session from "express-session";
 import { handlefun } from "../helper/handleFunction";
+import jwt from 'jsonwebtoken';
+import { config } from "../config/config";
 const userService = container.get<IUserService>(types.IUserService);
 const authController = new AuthController(userService);
 const gAuthRouter = express.Router();
@@ -41,10 +43,25 @@ gAuthRouter.get(
 
 gAuthRouter.get(
   "/auth/google/callback",
-  passport.authenticate("google", {
-    successRedirect: handlefun(true, true),
-    failureRedirect: handlefun(false, true),
-  })
+  passport.authenticate("google", { session: false }),
+  (req: express.Request, res: express.Response) => {
+    if (!req.user) {
+      return res.redirect("/gbutton");
+    }
+
+    const userId = (req.user as any).id;
+
+    const token = jwt.sign(
+      { user: { id: userId, email: (req.user as any).email } },
+      config.JWT_SECRET as string,
+      { expiresIn: "1h" }
+    );
+
+    res.json({
+      message: "Login successful!",
+      token,
+    });
+  }
 );
 
 export default gAuthRouter;

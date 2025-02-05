@@ -18,7 +18,8 @@ export default class urlController {
     async createShortUrl(req: Request, res: Response): Promise<any> {
         try {
             const { longUrl, customAlias, topic } = req.body;
-            const userId = (req.user as any).id;  //TODO: convert into user.id
+            const userId = (req.user as any)._id;
+            console.log('request body and request user', req.body, req.user);
             const result = await this._urlService.createShortenUrl({ longUrl, customAlias, topic, userId });
             await sendResponse(200, 'Short Url Successfully Created', result, res);
         } catch (serviceErr) {

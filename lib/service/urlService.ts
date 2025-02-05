@@ -42,6 +42,7 @@ export default class UrlService implements IUrlService {
     }
 
     async createShortenUrl(url: CreateShortUrl): Promise<GetShortUrl> {
+        console.log('[service] create url payload', url);
         try {
             const longUrl = url.longUrl;
             const customAlias = url.customAlias;
@@ -53,7 +54,7 @@ export default class UrlService implements IUrlService {
             const existingUrl = await this._urlRepository.findUrlByAlias(customAlias);
             if (existingUrl) throw new Error('Custom alias is already taken');
 
-            const shortUrl = `${process.env.BASE_URL || 'http://localhost:3000'}/${customAlias}`;
+            const shortUrl = `https://tinyurl.com/${customAlias}`;
 
             const response = await this._urlRepository.createShortenUrl({
                 longUrl,
